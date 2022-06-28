@@ -11,7 +11,7 @@
 from rest_framework import serializers,generics
 from store.api.pagination import Pagination
 from store.models import Hashtag, PostComment, UserProfile,Post,Room
-from .serializers import PostCommentSerialiser, UserProfileSerializer,PostSerializer,RoomSerializer,PostHashtagSerializer
+from .serializers import HashtagSerializer, PostCommentSerialiser, UserProfileSerializer,PostSerializer,RoomSerializer
 
 
 #----------list-create---------
@@ -32,7 +32,7 @@ class RoomListCreateAPIView(generics.ListCreateAPIView):
     
 class HashtagListCreateAPIView(generics.ListCreateAPIView):
     queryset = Hashtag.objects.all().order_by('-id')
-    serializer_class = PostHashtagSerializer
+    serializer_class = HashtagSerializer
     pagination_class=Pagination
     
 class CommentsListCreateAPIView(generics.ListCreateAPIView):
@@ -59,7 +59,7 @@ class RoomDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         
 class HashtagDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Hashtag.objects.all()
-    serializer_class = PostHashtagSerializer
+    serializer_class = HashtagSerializer
         
 
 

@@ -1,6 +1,6 @@
 from dataclasses import field
 from rest_framework import serializers
-from store.models import Hashtag, Post, PostComment, PostHashtag, Room,UserProfile,PostLike
+from store.models import Hashtag, Post, PostComment, Room,UserProfile
 from django.utils.timezone import now 
 
 class UserProfileSerializer(serializers.ModelSerializer): 
@@ -25,23 +25,29 @@ class PostCommentSerialiser(serializers.ModelSerializer):
 
 
 
-
-class PostHashtagSerializer(serializers.ModelSerializer):
-    hashtag_name = serializers.ReadOnlyField(source='hashtag.name')
-
+class HashtagSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PostHashtag
-        fields = ('hashtag_name')
+        model=Hashtag
+        fields=('name',)
+
 
 
 class PostSerializer(serializers.ModelSerializer):
     days_since_joined = serializers.SerializerMethodField() 
     comments=serializers.SerializerMethodField('get_comments')
     follower=serializers.StringRelatedField(many=True)
-    hashtag=PostHashtagSerializer(source='posthashtag_set',many=True)
+    hashtag=HashtagSerializer(many=True, required=False)
     class Meta:
         model=Post
-        fields = ['user','content','image','room','hashtag','comments','days_since_joined','follower']
+        fields =(
+            'user',
+            'content',
+            'image',
+            'room',
+            'hashtag',
+            'comments',
+            'days_since_joined',
+            'follower')
         # fields='__all__'
     
     def get_days_since_joined(self, obj): 
@@ -50,8 +56,7 @@ class PostSerializer(serializers.ModelSerializer):
           
     def get_comments(self, obj):
         return obj.comments.all().values("user","content")
-    # def get_hashtag(self, obj):
-    #     return obj.hashtag.all().values('hashtag')
+    
     
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -63,5 +68,4 @@ class RoomSerializer(serializers.ModelSerializer):
 
 
 
-    #   https://stackoverflow.com/questions/41976819/django-serialize-a-model-with-a-many-to-many-relationship-with-a-through-argume
     

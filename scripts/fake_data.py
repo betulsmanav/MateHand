@@ -45,7 +45,7 @@ def set_user():
     )
     user.save()
     users.append(user)
-    print(type(users))
+    # print(type(users))
 
 def set_hashtag():
     fake=Faker(['en_US'])   
@@ -78,19 +78,25 @@ def set_post():
     content=fake.paragraph(nb_sentences=5, variable_nb_sentences=False)
     # room=rooms listesinden random eleman alma
     room=secrets.choice(rooms)
-    hashtag=secrets.choice(hashtags)
+    # hashtag=secrets.choice(hashtags)
     user=secrets.choice(users)
 
     post=Post(
         content=content,
         user=user,
-        hashtag=hashtag,
+        # hashtag=hashtag,
         room=room,
     )
     print(post)
     post.save()
       
-
+def fake_data():
+    for i in range(0,100):
+        set_user()
+    for i in range(0,20):
+        set_room()
+    for i in range(0,20):
+        set_hashtag()
 
 
 
@@ -102,7 +108,7 @@ def set_post():
 
 # from scripts.fake_data import set_hashtag
 # from scripts.fake_data import set_user
-from scripts.fake_data import set_room,set_hashtag,set_user,set_post
+from scripts.fake_data import set_room,set_hashtag,set_user,set_post,fake_data
 from store.models import UserProfile,Hashtag,Room
 # set_hashtag()
 # set_user()
