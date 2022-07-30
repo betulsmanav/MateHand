@@ -63,14 +63,13 @@ class Post(models.Model):
     publish_date=models.DateTimeField(auto_now_add=True)
     last_update=models.DateTimeField(auto_now=True)
     room=models.ForeignKey(Room,related_name='room', on_delete=models.CASCADE)
-    hashtag = models.ManyToManyField(Hashtag,related_name='posts'  )
-# ,through='PostHashtag'
+    
     def __str__(self):
         return f"{self.room}---{self.user}---{self.content}"
 
-# class PostHashtag(models.Model):
-#     hashtag=models.ForeignKey(Hashtag,related_name='posthashtag', on_delete=models.CASCADE)
-#     post=models.ForeignKey(Post,related_name='posthashtag', on_delete=models.CASCADE)
+class PostHashtag(models.Model):
+    hashtag=models.ForeignKey(Hashtag,related_name='posthashtag', on_delete=models.CASCADE)
+    post=models.ForeignKey(Post,related_name='posthashtag', on_delete=models.CASCADE)
  
 
 

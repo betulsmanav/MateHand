@@ -35,8 +35,8 @@ class HashtagSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     days_since_joined = serializers.SerializerMethodField() 
     comments=serializers.SerializerMethodField('get_comments')
-    follower=serializers.StringRelatedField(many=True)
-    hashtag=HashtagSerializer(many=True, required=False)
+    follower=serializers.SerializerMethodField('get_follower')
+    posthashtag=serializers.SerializerMethodField('get_posthashtag')
     class Meta:
         model=Post
         fields =(
@@ -44,7 +44,7 @@ class PostSerializer(serializers.ModelSerializer):
             'content',
             'image',
             'room',
-            'hashtag',
+            'posthashtag',
             'comments',
             'days_since_joined',
             'follower')
@@ -56,6 +56,10 @@ class PostSerializer(serializers.ModelSerializer):
           
     def get_comments(self, obj):
         return obj.comments.all().values("user","content")
+    def get_posthashtag(self, obj):
+        return obj.posthashtag.all().values('hashtag')
+    def get_follower(self, obj):
+        return obj.follower.all().values('user')
     
     
 

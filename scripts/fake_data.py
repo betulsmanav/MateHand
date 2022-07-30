@@ -1,12 +1,17 @@
 import os
 import random
-import secrets
+
+from django.conf import settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main.settings')
 
 import django
 django.setup()
 ### Modellerimize ve django içeriklerine erişmek için yukarıdaki gibi ayarlamaları yapmamız lazım
 ### SIRALAMA ÇOK ÖNEMLİ
+import secrets
+files = os.listdir(os.path.join(settings.MEDIA_ROOT, "media/avartar"))
+print(files)
+# https://stackoverflow.com/questions/37270170/iterate-through-a-static-image-folder-in-django
 from store.models import Post, Room, UserProfile,Hashtag
 from django.contrib.auth.models import User
 
@@ -30,6 +35,7 @@ def set_user():
     batch=fake.random_element(elements=('user', 'Dr', 'Psk', 'Dt','Dt','Dyt'))
     # print(name, surname, email, city, country, bio,date_of_birth )
     
+
     user = UserProfile(
         name = name,
         surname = surname,
