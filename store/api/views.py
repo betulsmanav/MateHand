@@ -9,7 +9,7 @@
 # from rest_framework import status
 
 from rest_framework import serializers,generics
-from store.api.pagination import Pagination
+from store.api.pagination import LimitPagi, Pagination
 from store.models import Hashtag, PostComment, UserProfile,Post,Room
 from .serializers import HashtagSerializer, PostCommentSerialiser, UserProfileSerializer,PostSerializer,RoomSerializer
 
@@ -18,27 +18,28 @@ from .serializers import HashtagSerializer, PostCommentSerialiser, UserProfileSe
 class UserListCreateAPIView(generics.ListCreateAPIView):
     queryset = UserProfile.objects.all().order_by('-id')
     serializer_class = UserProfileSerializer
-    pagination_class=Pagination
+    pagination_class=LimitPagi
     
 class PostListCreateAPIView(generics.ListCreateAPIView):
     queryset = Post.objects.all().order_by('-id')
     serializer_class = PostSerializer
-    pagination_class=Pagination
+    pagination_class=LimitPagi
+
 
 class RoomListCreateAPIView(generics.ListCreateAPIView):
     queryset = Room.objects.all().order_by('-id')
     serializer_class = RoomSerializer
-    pagination_class=Pagination
+    pagination_class=LimitPagi
     
 class HashtagListCreateAPIView(generics.ListCreateAPIView):
     queryset = Hashtag.objects.all().order_by('-id')
     serializer_class = HashtagSerializer
-    pagination_class=Pagination
+    pagination_class=LimitPagi
     
 class CommentsListCreateAPIView(generics.ListCreateAPIView):
     queryset = PostComment.objects.all().order_by('-id')
     serializer_class = PostCommentSerialiser
-    pagination_class=Pagination
+    pagination_class=LimitPagi
 
 #----------detail-update-delete---------
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
