@@ -1,12 +1,15 @@
 from django.urls import path
-from .views import UserDetailAPIView,UserListCreateAPIView
+from .views import UserDetailAPIView,UserListAPIView,UserCreateAPIView,RegisterView,logout
+from rest_framework.authtoken import views
 
 
 urlpatterns = [
-    # list-create
-    path('users/',UserListCreateAPIView.as_view(), name='users_list'),
-    #detail-update-delete 
-    path('users/<uuid:pk>',UserDetailAPIView.as_view(), name='user_detail'),
+    path('register/',RegisterView.as_view()),
+    path('login/', views.obtain_auth_token),
+    path('logout/', logout),
+    path('list/',UserListAPIView.as_view(), name='users_list'),
+    path('create/',UserCreateAPIView.as_view(), name='users_list'),
+    path('detail/<int:pk>',UserDetailAPIView.as_view(), name='user_detail'),
 ]
  
 
