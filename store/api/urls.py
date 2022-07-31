@@ -1,16 +1,14 @@
 from django.urls import path
-from store.api.views import CommentDetailAPIView, CommentsListCreateAPIView, HashtagDetailAPIView, PostDetailAPIView,PostListCreateAPIView, RoomDetailAPIView,UserListCreateAPIView,RoomListCreateAPIView,HashtagListCreateAPIView,UserDetailAPIView
+from store.api.views import CommentDetailAPIView, CommentsListCreateAPIView, HashtagDetailAPIView, PostDetailAPIView,PostListCreateAPIView, RoomDetailAPIView,RoomListCreateAPIView,HashtagListCreateAPIView
 
 
 urlpatterns = [
     # list-create
-    path('users/',UserListCreateAPIView.as_view(), name='users_list'),
     path('posts/',PostListCreateAPIView.as_view(), name='posts_list'),
     path('rooms/', RoomListCreateAPIView.as_view(), name='rooms_list'),
     path('hashtags/',HashtagListCreateAPIView.as_view(), name='hashtags_list'),
     path('comments/',CommentsListCreateAPIView.as_view(), name='comments_list'),
     #detail-update-delete 
-    path('users/<uuid:pk>',UserDetailAPIView.as_view(), name='user_detail'),
     path('posts/<uuid:pk>',PostDetailAPIView.as_view(), name='post_detail'),
     path('rooms/<uuid:pk>', RoomDetailAPIView.as_view(), name='room_detail'),
     path('hashtags/<uuid:pk>',HashtagDetailAPIView.as_view(), name='hashtag_detail'),

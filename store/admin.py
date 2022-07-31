@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Follower, PostHashtag, UserProfile,Room,Hashtag,Post,PostLike,PostComment, UserRoomMembership
+from .models import  PostHashtag,Room,Hashtag,Post,PostLike,PostComment
 
 # PostHashtag,
 class PostAdmin(admin.ModelAdmin):
@@ -14,14 +14,11 @@ class PostAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(UserProfile)
 admin.site.register(Room)
-admin.site.register(UserRoomMembership)
 admin.site.register(Post,PostAdmin)
 admin.site.register(PostComment)
 admin.site.register(PostLike)
 admin.site.register(Hashtag)
 admin.site.register(PostHashtag)
-admin.site.register(Follower)
 
 

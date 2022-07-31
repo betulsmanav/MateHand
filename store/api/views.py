@@ -9,16 +9,13 @@
 # from rest_framework import status
 
 from rest_framework import serializers,generics
-from store.api.pagination import LimitPagi, Pagination
-from store.models import Hashtag, PostComment, UserProfile,Post,Room
-from .serializers import HashtagSerializer, PostCommentSerialiser, UserProfileSerializer,PostSerializer,RoomSerializer
+from store.api.pagination import LimitPagi
+from store.models import Hashtag, PostComment,Post,Room
+from .serializers import HashtagSerializer,PostCommentSerialiser,RoomSerializer,PostSerializer
 
 
 #----------list-create---------
-class UserListCreateAPIView(generics.ListCreateAPIView):
-    queryset = UserProfile.objects.all().order_by('-id')
-    serializer_class = UserProfileSerializer
-    pagination_class=LimitPagi
+
     
 class PostListCreateAPIView(generics.ListCreateAPIView):
     queryset = Post.objects.all().order_by('-id')
@@ -42,9 +39,7 @@ class CommentsListCreateAPIView(generics.ListCreateAPIView):
     pagination_class=LimitPagi
 
 #----------detail-update-delete---------
-class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+
     
 class PostDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
